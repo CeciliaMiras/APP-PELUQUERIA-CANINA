@@ -2,7 +2,10 @@
 package com.mycompany.peluqueriacanina.logica;
 
 import com.mycompany.peluqueriacanina.persistencia.ControladoraPersistencia;
+import com.mycompany.peluqueriacanina.persistencia.exceptions.NonexistentEntityException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class Controladora {
@@ -29,5 +32,13 @@ public class Controladora {
 
     public List<Mascota> traerMascota() {
     return controlPersis.traerMascotas();
+    }
+
+    public void borrarMasocta(int num_cliente) {
+        try {
+            controlPersis.borrarMascota(num_cliente);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(Controladora.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

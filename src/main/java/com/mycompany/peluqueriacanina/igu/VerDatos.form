@@ -170,6 +170,9 @@
                   <Image iconType="2" name="C:\Users\miras\OneDrive\Documentos\NetBeansProjects\PeluqueriaCanina\boton-x.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

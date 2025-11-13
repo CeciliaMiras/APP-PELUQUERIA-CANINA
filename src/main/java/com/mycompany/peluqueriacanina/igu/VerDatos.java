@@ -4,6 +4,8 @@ package com.mycompany.peluqueriacanina.igu;
 import com.mycompany.peluqueriacanina.logica.Controladora;
 import com.mycompany.peluqueriacanina.logica.Mascota;
 import java.util.List;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -62,6 +64,11 @@ public class VerDatos extends javax.swing.JFrame {
         btnEditar.setIcon(new javax.swing.ImageIcon("C:\\Users\\miras\\OneDrive\\Documentos\\NetBeansProjects\\PeluqueriaCanina\\lapiz (1).png")); // NOI18N
 
         btnEliminar.setIcon(new javax.swing.ImageIcon("C:\\Users\\miras\\OneDrive\\Documentos\\NetBeansProjects\\PeluqueriaCanina\\boton-x.png")); // NOI18N
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -139,7 +146,44 @@ public class VerDatos extends javax.swing.JFrame {
       cargarTabla();
     }//GEN-LAST:event_formWindowOpened
 
-   
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        //Controlo que la tabla no este vacia
+        if(TablaMascotas.getRowCount()>0){
+            //Controlo que se haya seleccionado a una mascota
+            if(TablaMascotas.getSelectedRow()!=-1){
+                //obtengo la id de la mascota a eliminar
+               
+               int num_cliente=Integer.parseInt(String.valueOf(TablaMascotas.getValueAt(TablaMascotas.getSelectedRow(),0)));
+               //llamo al metodo borrar en mi logica
+                control.borrarMasocta(num_cliente);
+                //aviso al usuario que borro correctamente
+                mostrarMensaje("Mascota Eliminada Correctamente", "Info", "Borrado de Mascotas");
+                cargarTabla();
+             
+            }
+            else{
+                mostrarMensaje("No Selecciono ninguna Mascota", "Error", "Error al Eliminar");
+            }
+        
+        }
+        else{
+            mostrarMensaje("No hay nada para Eliminar en la Tabla", "Error ", "Error al Eliminar");
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+      public void mostrarMensaje(String mensaje, String titulo,String tipo){
+          JOptionPane optionPane=new JOptionPane(mensaje);
+          if(tipo.equals("Info")){
+           optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+          }
+          else if(tipo.equals("Error")) {
+          optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+          }
+        JDialog dialog=optionPane.createDialog(titulo);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+      
+      }
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
