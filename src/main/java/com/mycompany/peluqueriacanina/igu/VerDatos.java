@@ -62,6 +62,11 @@ public class VerDatos extends javax.swing.JFrame {
         jLabel2.setText("Datos de Mascotas");
 
         btnEditar.setIcon(new javax.swing.ImageIcon("C:\\Users\\miras\\OneDrive\\Documentos\\NetBeansProjects\\PeluqueriaCanina\\lapiz (1).png")); // NOI18N
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setIcon(new javax.swing.ImageIcon("C:\\Users\\miras\\OneDrive\\Documentos\\NetBeansProjects\\PeluqueriaCanina\\boton-x.png")); // NOI18N
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -109,21 +114,21 @@ public class VerDatos extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(83, 83, 83))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel1)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addContainerGap(19, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -170,6 +175,30 @@ public class VerDatos extends javax.swing.JFrame {
             mostrarMensaje("No hay nada para Eliminar en la Tabla", "Error ", "Error al Eliminar");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+               //Controlo que la tabla no este vacia
+        if(TablaMascotas.getRowCount()>0){
+            //Controlo que se haya seleccionado a una mascota
+            if(TablaMascotas.getSelectedRow()!=-1){
+                //obtengo la id de la mascota a editar
+                 int num_cliente=Integer.parseInt(String.valueOf(TablaMascotas.getValueAt(TablaMascotas.getSelectedRow(),0)));
+                 ModificarDatos pantallaModif=new ModificarDatos(num_cliente);
+                 pantallaModif.setVisible(true);
+                 pantallaModif.setLocationRelativeTo(null);//para que aparezca en el medio
+                 this.dispose();//cerramos la pantalla
+                  }
+            else{
+                mostrarMensaje("No Selecciono ninguna Mascota", "Error", "Error al Eliminar");
+            }
+        
+        }
+        else{
+            mostrarMensaje("No hay nada para Eliminar en la Tabla", "Error ", "Error al Eliminar");
+            
+        }
+        
+    }//GEN-LAST:event_btnEditarActionPerformed
       public void mostrarMensaje(String mensaje, String titulo,String tipo){
           JOptionPane optionPane=new JOptionPane(mensaje);
           if(tipo.equals("Info")){

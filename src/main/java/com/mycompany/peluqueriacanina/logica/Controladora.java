@@ -41,4 +41,33 @@ public class Controladora {
             Logger.getLogger(Controladora.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public Mascota traerMascota(int num_cliente) {
+       return controlPersis.traerMascota(num_cliente);
+    }
+
+    public void modificarMasocta(Mascota masco, String nombreMasco, String raza, String color, String observaciones, String alergico, String atenEsp, String nombreDuenio, String celDuenio) {
+        masco.setNombre(nombreMasco);
+        masco.setRaza(raza);
+        masco.setColor(color);
+        masco.setObservaciones(observaciones);
+        masco.setAtencion_especial(atenEsp);
+        masco.setAlergico(alergico);
+        //modifico mascota
+        controlPersis.modificarMasocta(masco);
+        //seteo nuevo valores del dueño
+        Duenio duenio=this.buscarDuenio(masco.getUn_duenio().getId_duenio());
+        duenio.setCelDuenio(celDuenio);
+        duenio.setNombre(nombreDuenio);
+        //llamar al modificar dueño 
+        this.modificarDuenio(duenio);
+    }
+
+    private Duenio buscarDuenio(int id_duenio) {
+        return controlPersis.traerDuenio(id_duenio);
+    }
+
+    private void modificarDuenio(Duenio duenio) {
+       controlPersis.modificarDuenio(duenio);
+    }
 }
